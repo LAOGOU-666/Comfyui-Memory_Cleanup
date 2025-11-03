@@ -1,7 +1,7 @@
 [project]
 name = "comfyui_memory_cleanup"
 description = "A ComfyUI extension that provides nodes for memory cleanup, including VRAM and RAM cleanup functions to optimize ComfyUI performance during long running workflows."
-version = "1.1.1"
+version = "1.1.2"
 dependencies = ["psutil"]
 
 [project.urls]
