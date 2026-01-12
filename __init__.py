@@ -2,10 +2,7 @@ import psutil
 import ctypes
 from ctypes import wintypes
 import time
-import os
 import platform
-import subprocess
-import tempfile
 import gc
 from server import PromptServer
 import comfy.model_management
@@ -117,8 +114,8 @@ class RAMCleanup:
                         if system == "Windows":
                             ctypes.windll.kernel32.SetSystemFileCacheSize(-1, -1, 0)
                         elif system == "Linux":
-                            subprocess.run(["sudo", "sh", "-c", "echo 3 > /proc/sys/vm/drop_caches"], 
-                                          check=False, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+                            libc = ctypes.CDLL("libc.so.6")
+                            libc.malloc_trim(0)
                     except:
                         pass
                 
@@ -140,8 +137,6 @@ class RAMCleanup:
                     try:
                         if system == "Windows":
                             ctypes.windll.kernel32.SetProcessWorkingSetSize(-1, -1, -1)
-                        elif system == "Linux":
-                            subprocess.run(["sync"], check=True)
                     except:
                         pass
 
