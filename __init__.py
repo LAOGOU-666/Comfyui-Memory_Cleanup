@@ -49,6 +49,10 @@ class VRAMCleanup:
         try:
             if offload_model:
                 comfy.model_management.unload_all_models()
+                if len(comfy.model_management.loaded_models) == 0:
+                    print("模型卸载成功")
+                else:
+                    print("模型卸载失败")
             
             if offload_cache:
                 gc.collect()
